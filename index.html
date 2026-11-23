@@ -216,35 +216,32 @@
 
     .gate-pricing-strip {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
       margin-bottom: 16px;
     }
     .gate-price-pill {
       background: rgba(5, 6, 11, 0.75);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 9px 8px;
+      padding: 10px 10px;
       text-align: center;
     }
     .gate-price-pill.highlight {
-      border-color: rgba(16, 245, 160, 0.45);
-      background: rgba(16, 245, 160, 0.08);
+      border-color: rgba(0, 245, 235, 0.45);
+      background: rgba(0, 245, 235, 0.08);
     }
     .gate-price-pill small {
       display: block;
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       color: var(--muted);
       font-weight: 600;
       margin-bottom: 2px;
     }
     .gate-price-pill strong {
-      font-size: 0.94rem;
+      font-size: 1rem;
       color: var(--accent-1);
       font-weight: 800;
-    }
-    .gate-price-pill.highlight strong {
-      color: var(--success);
     }
 
     .gate-tabs {
@@ -263,7 +260,7 @@
       border-radius: 10px;
       background: transparent;
       color: var(--muted);
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-weight: 700;
       cursor: pointer;
       display: flex;
@@ -306,12 +303,39 @@
       border-color: var(--accent-1);
     }
 
+    .gate-passcode-input {
+      text-align: center;
+      font-size: 1.25rem !important;
+      font-weight: 800;
+      letter-spacing: 8px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .gate-divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 15px 0 13px;
+      color: var(--muted);
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+    }
+    .gate-divider::before,
+    .gate-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
     .gate-btn {
       width: 100%;
       padding: 13px 16px;
       border-radius: 12px;
       border: none;
-      font-size: 0.95rem;
+      font-size: 0.94rem;
       font-weight: 700;
       cursor: pointer;
       display: inline-flex;
@@ -331,6 +355,11 @@
       background: var(--surface-light);
       color: #fff;
       border: 1px solid var(--border);
+    }
+    .gate-btn-passcode {
+      background: linear-gradient(135deg, var(--accent-2), var(--accent-3));
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(255, 37, 110, 0.28);
     }
 
     .gate-qr-actions {
@@ -1561,20 +1590,16 @@
           <i class="fa-solid fa-lock"></i>
         </div>
         <h2>Unlock AllSnap Pro</h2>
-        <p>Pay with your <strong>OSSIAN PRO</strong> account via <strong>QR Pay</strong> or <strong>Password Pay</strong> to access the downloader for <strong>5 Minutes</strong>.</p>
+        <p>Pay <strong>600 TOK</strong> using your <strong>OSSIAN TOK QR Code</strong>, its <strong>6-Digit Passcode</strong>, or <strong>Password Pay</strong> to unlock for <strong>5 Minutes</strong>.</p>
       </div>
 
       <div class="gate-expired-banner" id="gateExpiredBanner">
-        <i class="fa-solid fa-hourglass-end"></i> Your 5-minute session has ended! Pay <strong>600 TOK</strong> via QR or Password to unlock again.
+        <i class="fa-solid fa-hourglass-end"></i> Your 5-minute session has ended! Pay <strong>600 TOK</strong> to unlock again.
       </div>
 
       <div class="gate-pricing-strip">
         <div class="gate-price-pill highlight">
-          <small>First Time</small>
-          <strong>250 TOK</strong>
-        </div>
-        <div class="gate-price-pill">
-          <small>After First Time</small>
+          <small>One-Time Pay</small>
           <strong>600 TOK</strong>
         </div>
         <div class="gate-price-pill">
@@ -1585,22 +1610,22 @@
 
       <div class="gate-tabs">
         <button type="button" class="gate-tab-btn active" id="gateTabQrBtn" data-gate-tab="qr">
-          <i class="fa-solid fa-qrcode"></i> QR Pay
+          <i class="fa-solid fa-qrcode"></i> OSSIAN TOK Pay
         </button>
         <button type="button" class="gate-tab-btn" id="gateTabPassBtn" data-gate-tab="password">
           <i class="fa-solid fa-key"></i> Password Pay
         </button>
       </div>
 
-      <!-- TAB 1: QR PAY -->
+      <!-- TAB 1: OSSIAN TOK QR PAY & 6-DIGIT PASSCODE PAY -->
       <div class="gate-panel active" id="gatePanelQr">
         <div class="gate-qr-actions">
           <input type="file" id="gateQrFileInput" accept="image/*" style="display:none;" />
           <button type="button" class="gate-btn gate-btn-primary" id="gateUploadQrBtn">
-            <i class="fa-solid fa-upload"></i> Upload OSSIAN Login QR &amp; Pay
+            <i class="fa-solid fa-upload"></i> Upload OSSIAN TOK QR &amp; Pay (600 TOK)
           </button>
           <button type="button" class="gate-btn gate-btn-secondary" id="gateCamQrBtn">
-            <i class="fa-solid fa-camera"></i> Scan QR with Camera &amp; Pay
+            <i class="fa-solid fa-camera"></i> Scan OSSIAN TOK QR with Camera
           </button>
         </div>
 
@@ -1611,6 +1636,28 @@
             <i class="fa-solid fa-xmark"></i> Stop Camera
           </button>
         </div>
+
+        <div class="gate-divider">Or Pay with 6-Digit Passcode</div>
+
+        <form id="gatePasscodeForm">
+          <div class="gate-field">
+            <label for="gatePasscodeInput">OSSIAN TOK 6-Digit Passcode</label>
+            <input
+              type="text"
+              id="gatePasscodeInput"
+              class="gate-passcode-input"
+              placeholder="••••••"
+              maxlength="6"
+              inputmode="numeric"
+              pattern="\d{6}"
+              autocomplete="one-time-code"
+              required
+            />
+          </div>
+          <button type="submit" class="gate-btn gate-btn-passcode" id="gatePasscodeSubmitBtn">
+            <i class="fa-solid fa-shield-check"></i> Pay 600 TOK with Passcode
+          </button>
+        </form>
       </div>
 
       <!-- TAB 2: PASSWORD PAY -->
@@ -1625,7 +1672,7 @@
             <input type="password" id="gatePasswordInput" placeholder="Enter your password" required autocomplete="current-password" />
           </div>
           <button type="submit" class="gate-btn gate-btn-primary" id="gatePassSubmitBtn">
-            <i class="fa-solid fa-bolt"></i> Pay Tokens &amp; Unlock (5 Min)
+            <i class="fa-solid fa-bolt"></i> Pay 600 TOK &amp; Unlock (5 Min)
           </button>
         </form>
       </div>
@@ -1633,7 +1680,7 @@
       <div class="gate-error" id="gateErrorMsg"></div>
 
       <div class="gate-foot-note">
-        <i class="fa-solid fa-shield-halved"></i> Connected to <strong>OSSIAN Firebase</strong> • First unlock charges <strong>250 TOK</strong>, every next unlock charges <strong>600 TOK</strong> for 5 minutes.
+        <i class="fa-solid fa-shield-halved"></i> Connected to <strong>OSSIAN Firebase</strong> • One-time payment is <strong>600 TOK</strong> for 5 minutes of full access. (Login QR is not accepted — use <strong>OSSIAN TOK QR</strong> or <strong>6-Digit Passcode</strong>).
       </div>
     </div>
   </div>
@@ -1805,7 +1852,7 @@
         <div class="about-grid">
           <div class="about-card">
             <h4><i class="fa-solid fa-list-check"></i> How to Use?</h4>
-            <p>1. Unlock with QR Pay or Password Pay (250 TOK first time, 600 TOK afterwards for 5 min). 2. Paste any public video link and click Download. 3. Preview and save HD MP4, Cover JPG, or MP3.</p>
+            <p>1. Unlock with OSSIAN TOK QR, 6-Digit Passcode, or Password Pay (600 TOK for 5 min). 2. Paste any public video link and click Download. 3. Preview and save HD MP4, Cover JPG, or MP3.</p>
           </div>
           <div class="about-card">
             <h4><i class="fa-solid fa-clock"></i> 5-Minute Token Pass</h4>
@@ -1837,7 +1884,7 @@
               <i class="fa-solid fa-chevron-down"></i>
             </button>
             <div class="faq-a">
-              First-time users pay only 250 TOK via OSSIAN QR Pay or Password Pay for 5 minutes of full access. After the 5-minute timer ends, the site locks again and each subsequent 5-minute unlock costs 600 TOK.
+              Each unlock requires a one-time payment of 600 TOK via your OSSIAN TOK QR Code, its 6-Digit Passcode, or Password Pay for 5 minutes of full access. After the 5-minute timer ends, the site locks again and requires another 600 TOK to unlock.
             </div>
           </div>
           <div class="faq-item">
@@ -1951,13 +1998,13 @@
     const FB_API_KEY = _j(['AIzaSyAmRa', 'nnDqIGfpZb', 'rM5UmQODj5', 'Ww7AR6sHI']);
     const FB_PROJECT_ID = _j(['ossian', '-web']);
     const FB_USERS_URL = `https://firestore.googleapis.com/v1/projects/${FB_PROJECT_ID}/databases/(default)/documents/users`;
+    const FB_TOK_URL = `https://firestore.googleapis.com/v1/projects/${FB_PROJECT_ID}/databases/(default)/documents/ossian_tok`;
     const FB_PAYMENTS_URL = `https://firestore.googleapis.com/v1/projects/${FB_PROJECT_ID}/databases/(default)/documents/allsnap_payments`;
     const SESSION_SECRET_KEY = 'OSSIAN_PRO_BANK_SEC_V3';
 
-    const FIRST_TIME_COST = 250;
-    const REPEAT_COST = 600;
+    const UNLOCK_COST = 600; // One-time flat cost: 600 TOK
     const UNLOCK_DURATION_MS = 5 * 60 * 1000; // 5 minutes
-    const ACCESS_STORAGE_KEY = 'allsnap_ossian_unlock_v1';
+    const ACCESS_STORAGE_KEY = 'allsnap_ossian_unlock_v2';
 
     const payGateOverlay = document.getElementById('payGateOverlay');
     const gateExpiredBanner = document.getElementById('gateExpiredBanner');
@@ -1973,6 +2020,9 @@
     const gateCamVideo = document.getElementById('gateCamVideo');
     const gateCamCanvas = document.getElementById('gateCamCanvas');
     const gateCamStopBtn = document.getElementById('gateCamStopBtn');
+    const gatePasscodeForm = document.getElementById('gatePasscodeForm');
+    const gatePasscodeInput = document.getElementById('gatePasscodeInput');
+    const gatePasscodeSubmitBtn = document.getElementById('gatePasscodeSubmitBtn');
     const gatePasswordForm = document.getElementById('gatePasswordForm');
     const gateEmailInput = document.getElementById('gateEmailInput');
     const gatePasswordInput = document.getElementById('gatePasswordInput');
@@ -2036,17 +2086,32 @@
       const parts = String(rawText || '').trim().split('.');
       if (parts.length !== 4) return null;
       const [prefix, nonce, cipherB64, mac] = parts;
-      if (prefix !== 'OPR1' || !nonce || !cipherB64 || !mac) return null;
+      const allowedPrefixes = ['OTK1', 'TOK1', 'OPR1'];
+      if (!allowedPrefixes.includes(prefix) || !nonce || !cipherB64 || !mac) return null;
       const seed = SESSION_SECRET_KEY + '|' + prefix + '|' + nonce;
       if (mac !== hashSecret(seed + '|MAC|' + cipherB64)) return null;
       try {
         const cBytes = base64UrlToBytes(cipherB64);
         const pBytes = new Uint8Array(cBytes.length);
         for (let i = 0; i < cBytes.length; i++) pBytes[i] = cBytes[i] ^ deriveKeystreamByte(seed, i);
-        return JSON.parse(bytesToUtf8(pBytes));
+        const parsed = JSON.parse(bytesToUtf8(pBytes));
+        if (parsed && typeof parsed === 'object') {
+          parsed._prefix = prefix;
+        }
+        return parsed;
       } catch {
         return null;
       }
+    }
+
+    function readFsStr(f, ...keys) {
+      for (const k of keys) {
+        if (f[k]) {
+          if (f[k].stringValue !== undefined) return String(f[k].stringValue);
+          if (f[k].integerValue !== undefined) return String(f[k].integerValue);
+        }
+      }
+      return '';
     }
 
     function parseFirestoreUser(docObj) {
@@ -2060,10 +2125,28 @@
         passwordHash: (f.passwordHash && f.passwordHash.stringValue) || '',
         passwordSha256: (f.passwordSha256 && f.passwordSha256.stringValue) || '',
         qrToken: (f.qrToken && f.qrToken.stringValue) || '',
+        // OSSIAN TOK specific QR & 6-digit passcode fields on user doc
+        tokQrToken: readFsStr(f, 'tokQrToken', 'ossianTokQr', 'tokQr', 'tokToken', 'payQrToken'),
+        tokPasscode: readFsStr(f, 'tokPasscode', 'tokPin', 'passcode', 'payPin', 'pin'),
+        tokPasscodeHash: readFsStr(f, 'tokPasscodeHash', 'tokPinHash', 'passcodeHash', 'pinHash'),
+        tokPasscodeSha256: readFsStr(f, 'tokPasscodeSha256', 'tokPinSha256', 'passcodeSha256', 'pinSha256'),
         tokens: isNaN(tokVal) ? 0 : Math.max(0, Math.floor(tokVal)),
         suspended: Boolean(f.suspended && f.suspended.booleanValue === true),
-        allsnapFirstPaid: Boolean(f.allsnapFirstPaid && f.allsnapFirstPaid.booleanValue === true),
         allsnapPayCount: isNaN(payCnt) ? 0 : Math.max(0, Math.floor(payCnt))
+      };
+    }
+
+    function parseFirestoreTokDoc(docObj) {
+      const f = docObj.fields || {};
+      const bal = f.tokens ? Number(f.tokens.integerValue || f.tokens.doubleValue || 0)
+        : (f.amount ? Number(f.amount.integerValue || f.amount.doubleValue || 0) : 0);
+      return {
+        docId: (docObj.name || '').split('/').pop(),
+        uid: readFsStr(f, 'uid', 'ownerUid', 'userId'),
+        qrCode: readFsStr(f, 'qrToken', 'qrCode', 'tokQr', 'tokToken', 'code'),
+        passcode: readFsStr(f, 'passcode', 'tokPasscode', 'pin', 'code6'),
+        tokens: isNaN(bal) ? 0 : Math.max(0, Math.floor(bal)),
+        used: Boolean(f.used && f.used.booleanValue === true)
       };
     }
 
@@ -2084,6 +2167,17 @@
         if (!res.ok) return [];
         const data = await res.json();
         return (data && Array.isArray(data.documents)) ? data.documents.map(parseFirestoreUser) : [];
+      } catch {
+        return [];
+      }
+    }
+
+    async function fetchAllTokDocs() {
+      try {
+        const res = await fetch(`${FB_TOK_URL}?pageSize=300&key=${encodeURIComponent(FB_API_KEY)}`, { cache: 'no-store' });
+        if (!res.ok) return [];
+        const data = await res.json();
+        return (data && Array.isArray(data.documents)) ? data.documents.map(parseFirestoreTokDoc) : [];
       } catch {
         return [];
       }
@@ -2111,6 +2205,11 @@
 
     gateTabQrBtn.addEventListener('click', () => switchGateTab('qr'));
     gateTabPassBtn.addEventListener('click', () => switchGateTab('password'));
+
+    // Keep passcode input strictly numeric (max 6 digits)
+    gatePasscodeInput.addEventListener('input', () => {
+      gatePasscodeInput.value = gatePasscodeInput.value.replace(/\D/g, '').slice(0, 6);
+    });
 
     function signSessionToken(uid, unlockedUntil) {
       return hashSecret(`${uid}|${unlockedUntil}|${SESSION_SECRET_KEY}|ALLSNAP`);
@@ -2192,7 +2291,6 @@
       clearGateError();
 
       try {
-        // Re-fetch fresh user from Firebase to guarantee accurate token balance & first-time flag
         const freshUser = await fetchCloudUserByUid(matchedUser.uid);
         if (!freshUser) {
           showGateError('Network error! Could not connect to Firebase.');
@@ -2203,12 +2301,11 @@
           return;
         }
 
-        const isFirstTime = !freshUser.allsnapFirstPaid && freshUser.allsnapPayCount === 0;
-        const cost = isFirstTime ? FIRST_TIME_COST : REPEAT_COST;
+        const cost = UNLOCK_COST; // Always 600 TOK
 
         if (freshUser.tokens < cost) {
           showGateError(
-            `Insufficient Tokens! This ${isFirstTime ? 'first-time' : '5-minute'} unlock requires <strong>${cost} TOK</strong>, but your balance is <strong>${freshUser.tokens.toLocaleString()} TOK</strong>.`
+            `Insufficient Tokens! Unlocking requires <strong>${cost} TOK</strong>, but your balance is <strong>${freshUser.tokens.toLocaleString()} TOK</strong>.`
           );
           return;
         }
@@ -2220,7 +2317,6 @@
         const patchUrl =
           `${FB_USERS_URL}/${encodeURIComponent(freshUser.uid)}` +
           `?updateMask.fieldPaths=tokens` +
-          `&updateMask.fieldPaths=allsnapFirstPaid` +
           `&updateMask.fieldPaths=allsnapPayCount` +
           `&updateMask.fieldPaths=allsnapUnlockedUntil` +
           `&key=${encodeURIComponent(FB_API_KEY)}`;
@@ -2231,7 +2327,6 @@
           body: JSON.stringify({
             fields: {
               tokens: { integerValue: String(newTokens) },
-              allsnapFirstPaid: { booleanValue: true },
               allsnapPayCount: { integerValue: String(newPayCount) },
               allsnapUnlockedUntil: { integerValue: String(unlockedUntil) }
             }
@@ -2243,7 +2338,7 @@
           return;
         }
 
-        // Optional audit log (non-blocking)
+        // Audit log (non-blocking)
         try {
           const payId = `as_${Date.now()}_${Math.floor(1000 + Math.random() * 9000)}`;
           fetch(`${FB_PAYMENTS_URL}?documentId=${encodeURIComponent(payId)}&key=${encodeURIComponent(FB_API_KEY)}`, {
@@ -2257,7 +2352,6 @@
                 email: { stringValue: freshUser.email },
                 method: { stringValue: methodLabel },
                 tokensCharged: { integerValue: String(cost) },
-                isFirstTime: { booleanValue: isFirstTime },
                 remainingTokens: { integerValue: String(newTokens) },
                 unlockedUntil: { integerValue: String(unlockedUntil) },
                 createdAt: { integerValue: String(Date.now()) }
@@ -2276,15 +2370,144 @@
         try { localStorage.setItem(ACCESS_STORAGE_KEY, JSON.stringify(activeUnlockSession)); } catch {}
 
         gatePasswordForm.reset();
+        gatePasscodeForm.reset();
         applyUnlockedUI();
         showToast(
-          `Unlocked for 5 Minutes! ${cost} TOK paid (${isFirstTime ? 'First-Time Offer' : 'Standard Rate'}). Balance: ${newTokens.toLocaleString()} TOK`,
+          `Unlocked for 5 Minutes! ${cost} TOK paid. Balance: ${newTokens.toLocaleString()} TOK`,
           'fa-solid fa-unlock'
         );
       } finally {
         isProcessingUnlock = false;
       }
     }
+
+    // Standalone TOK Document Unlock (if OSSIAN TOK is stored in ossian_tok collection without uid)
+    async function processUnlockWithTokDoc(tokDoc, methodLabel) {
+      if (isProcessingUnlock) return;
+      isProcessingUnlock = true;
+      clearGateError();
+
+      try {
+        if (tokDoc.used) {
+          showGateError('This OSSIAN TOK code has already been used!');
+          return;
+        }
+        if (tokDoc.tokens < UNLOCK_COST) {
+          showGateError(`Insufficient TOK on this OSSIAN TOK card! Requires <strong>${UNLOCK_COST} TOK</strong>, balance is <strong>${tokDoc.tokens} TOK</strong>.`);
+          return;
+        }
+
+        const newTokens = Math.max(0, Math.floor(tokDoc.tokens) - UNLOCK_COST);
+        const unlockedUntil = Date.now() + UNLOCK_DURATION_MS;
+
+        const patchUrl =
+          `${FB_TOK_URL}/${encodeURIComponent(tokDoc.docId)}` +
+          `?updateMask.fieldPaths=tokens` +
+          `&updateMask.fieldPaths=used` +
+          `&key=${encodeURIComponent(FB_API_KEY)}`;
+
+        const patchRes = await fetch(patchUrl, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fields: {
+              tokens: { integerValue: String(newTokens) },
+              used: { booleanValue: newTokens < UNLOCK_COST }
+            }
+          })
+        });
+
+        if (!patchRes.ok) {
+          showGateError('Payment failed on Firebase! Please try again.');
+          return;
+        }
+
+        const sessionUid = tokDoc.docId;
+        activeUnlockSession = {
+          uid: sessionUid,
+          name: 'OSSIAN TOK',
+          tokens: newTokens,
+          unlockedUntil,
+          sig: signSessionToken(sessionUid, unlockedUntil)
+        };
+        try { localStorage.setItem(ACCESS_STORAGE_KEY, JSON.stringify(activeUnlockSession)); } catch {}
+
+        gatePasscodeForm.reset();
+        applyUnlockedUI();
+        showToast(`Unlocked for 5 Minutes! ${UNLOCK_COST} TOK paid. Balance: ${newTokens.toLocaleString()} TOK`, 'fa-solid fa-unlock');
+      } finally {
+        isProcessingUnlock = false;
+      }
+    }
+
+    // 6-DIGIT PASSCODE PAY HANDLER
+    gatePasscodeForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearGateError();
+
+      const code = gatePasscodeInput.value.replace(/\D/g, '').trim();
+      if (!/^\d{6}$/.test(code)) {
+        showGateError('Please enter a valid 6-digit OSSIAN TOK passcode.');
+        return;
+      }
+
+      const originalHtml = gatePasscodeSubmitBtn.innerHTML;
+      gatePasscodeSubmitBtn.disabled = true;
+      gatePasscodeSubmitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verifying Passcode...';
+
+      try {
+        const legacyHash = hashSecret(code);
+        const [users, tokDocs] = await Promise.all([
+          fetchAllCloudUsers(),
+          fetchAllTokDocs()
+        ]);
+
+        // 1. Check users collection for matching 6-digit TOK passcode
+        let matchedUser = null;
+        for (const u of users) {
+          if (u.tokPasscode && u.tokPasscode === code) {
+            matchedUser = u;
+            break;
+          }
+          if (u.tokPasscodeHash && u.tokPasscodeHash === legacyHash) {
+            matchedUser = u;
+            break;
+          }
+          if (u.tokPasscodeSha256) {
+            const shaEmail = await sha256Salted(code, u.email || u.uid);
+            const shaUid = await sha256Salted(code, u.uid);
+            if (u.tokPasscodeSha256 === shaEmail || u.tokPasscodeSha256 === shaUid) {
+              matchedUser = u;
+              break;
+            }
+          }
+        }
+
+        if (matchedUser) {
+          await processUnlockWithUser(matchedUser, 'OSSIAN TOK 6-Digit Passcode');
+          return;
+        }
+
+        // 2. Check ossian_tok collection for matching 6-digit passcode
+        const matchedTok = tokDocs.find((d) => d.passcode === code);
+        if (matchedTok) {
+          if (matchedTok.uid) {
+            const owner = await fetchCloudUserByUid(matchedTok.uid);
+            if (owner) {
+              await processUnlockWithUser(owner, 'OSSIAN TOK 6-Digit Passcode');
+              return;
+            }
+          }
+          await processUnlockWithTokDoc(matchedTok, 'OSSIAN TOK 6-Digit Passcode');
+          return;
+        }
+
+        showGateError('Invalid 6-digit OSSIAN TOK passcode!');
+      } finally {
+        gatePasscodeSubmitBtn.disabled = false;
+        gatePasscodeSubmitBtn.innerHTML = originalHtml;
+      }
+    });
 
     // PASSWORD PAY HANDLER
     gatePasswordForm.addEventListener('submit', async (e) => {
@@ -2326,26 +2549,130 @@
       }
     });
 
-    // QR PAY: UPLOAD IMAGE HANDLER
+    // OSSIAN TOK QR PAY: UPLOAD IMAGE HANDLER
     gateUploadQrBtn.addEventListener('click', () => {
       clearGateError();
       gateQrFileInput.value = '';
       gateQrFileInput.click();
     });
 
+    function parseJsonQrSafe(rawText) {
+      try {
+        const t = String(rawText || '').trim();
+        if (!t.startsWith('{')) return null;
+        return JSON.parse(t);
+      } catch {
+        return null;
+      }
+    }
+
     async function handleDecodedQrText(rawText) {
-      const payload = unsealQrPayload(rawText);
-      if (!payload || !payload.u || !payload.t) {
-        showGateError('Invalid OSSIAN PRO Login QR code!');
+      const cleanRaw = String(rawText || '').trim();
+      if (!cleanRaw) {
+        showGateError('Empty QR code.');
         return false;
       }
-      const cloudUser = await fetchCloudUserByUid(payload.u);
-      if (!cloudUser || cloudUser.qrToken !== payload.t) {
-        showGateError('Expired or invalid Login QR code!');
+
+      // Case 1: Sealed OSSIAN QR payload (OTK1 / TOK1 / OPR1)
+      const sealed = unsealQrPayload(cleanRaw);
+      if (sealed) {
+        const uid = sealed.u || sealed.uid;
+        const tokToken = sealed.tok || sealed.tokToken || sealed.tk || sealed.t;
+        const isExplicitTok =
+          sealed._prefix === 'OTK1' ||
+          sealed._prefix === 'TOK1' ||
+          String(sealed.type || sealed.kind || '').toUpperCase() === 'TOK' ||
+          Boolean(sealed.tok || sealed.tokToken || sealed.tk);
+
+        if (!uid) {
+          showGateError('Invalid OSSIAN TOK QR code!');
+          return false;
+        }
+
+        const cloudUser = await fetchCloudUserByUid(uid);
+        if (!cloudUser) {
+          showGateError('Account not found for this OSSIAN TOK QR!');
+          return false;
+        }
+
+        // Explicitly BLOCK regular OSSIAN Login QR codes
+        if (!isExplicitTok && sealed._prefix === 'OPR1' && tokToken && tokToken === cloudUser.qrToken && tokToken !== cloudUser.tokQrToken) {
+          showGateError('OSSIAN Login QR is not accepted! Please use your <strong>OSSIAN TOK QR code</strong> or <strong>6-Digit Passcode</strong>.');
+          return false;
+        }
+
+        // Verify TOK token matches user's TOK QR token if set on user doc
+        if (cloudUser.tokQrToken && tokToken !== cloudUser.tokQrToken) {
+          showGateError('Expired or invalid OSSIAN TOK QR code!');
+          return false;
+        }
+
+        if (!isExplicitTok && (!cloudUser.tokQrToken || tokToken !== cloudUser.tokQrToken)) {
+          showGateError('Only OSSIAN TOK QR codes are accepted here!');
+          return false;
+        }
+
+        await processUnlockWithUser(cloudUser, 'OSSIAN TOK QR Pay');
+        return true;
+      }
+
+      // Case 2: JSON-formatted OSSIAN TOK QR
+      const jsonQr = parseJsonQrSafe(cleanRaw);
+      if (jsonQr) {
+        const typeStr = String(jsonQr.type || jsonQr.kind || '').toUpperCase();
+        if (typeStr === 'LOGIN') {
+          showGateError('OSSIAN Login QR is not accepted! Please use your OSSIAN TOK QR code.');
+          return false;
+        }
+        const uid = jsonQr.uid || jsonQr.u;
+        const tokCode = jsonQr.tokQrToken || jsonQr.tokToken || jsonQr.tokCode || jsonQr.token || jsonQr.t;
+        if (uid) {
+          const cloudUser = await fetchCloudUserByUid(uid);
+          if (cloudUser && (!cloudUser.tokQrToken || cloudUser.tokQrToken === tokCode)) {
+            await processUnlockWithUser(cloudUser, 'OSSIAN TOK QR Pay');
+            return true;
+          }
+        }
+        if (jsonQr.passcode && /^\d{6}$/.test(String(jsonQr.passcode))) {
+          gatePasscodeInput.value = String(jsonQr.passcode);
+          gatePasscodeForm.dispatchEvent(new Event('submit'));
+          return true;
+        }
+      }
+
+      // Case 3: Direct TOK string / URL / code stored in users.tokQrToken or ossian_tok collection
+      const [users, tokDocs] = await Promise.all([
+        fetchAllCloudUsers(),
+        fetchAllTokDocs()
+      ]);
+
+      // Block if raw string matches a user's Login qrToken
+      if (users.some((u) => u.qrToken && u.qrToken === cleanRaw && u.tokQrToken !== cleanRaw)) {
+        showGateError('OSSIAN Login QR is not accepted! Please use your OSSIAN TOK QR code.');
         return false;
       }
-      await processUnlockWithUser(cloudUser, 'QR Pay');
-      return true;
+
+      const matchedUser = users.find((u) => u.tokQrToken && u.tokQrToken === cleanRaw);
+      if (matchedUser) {
+        await processUnlockWithUser(matchedUser, 'OSSIAN TOK QR Pay');
+        return true;
+      }
+
+      const matchedTokDoc = tokDocs.find((d) => d.qrCode === cleanRaw || d.docId === cleanRaw);
+      if (matchedTokDoc) {
+        if (matchedTokDoc.uid) {
+          const owner = await fetchCloudUserByUid(matchedTokDoc.uid);
+          if (owner) {
+            await processUnlockWithUser(owner, 'OSSIAN TOK QR Pay');
+            return true;
+          }
+        }
+        await processUnlockWithTokDoc(matchedTokDoc, 'OSSIAN TOK QR Pay');
+        return true;
+      }
+
+      showGateError('Invalid OSSIAN TOK QR code! (Login QR codes are not accepted).');
+      return false;
     }
 
     gateQrFileInput.addEventListener('change', (e) => {
@@ -2358,7 +2685,7 @@
 
       const origHtml = gateUploadQrBtn.innerHTML;
       gateUploadQrBtn.disabled = true;
-      gateUploadQrBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Reading QR &amp; Paying...';
+      gateUploadQrBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Reading TOK QR &amp; Paying...';
 
       const reader = new FileReader();
       reader.onload = (ev) => {
@@ -2445,7 +2772,7 @@
         camScanRaf = requestAnimationFrame(scanLoop);
       } catch {
         stopQrCamera();
-        showGateError('Camera permission denied or unavailable. Please upload your QR image instead.');
+        showGateError('Camera permission denied or unavailable. Please upload your OSSIAN TOK QR image instead.');
       }
     });
 
@@ -3657,7 +3984,7 @@
       e.preventDefault();
       if (!isSessionUnlocked()) {
         enforceLockGate(true);
-        showToast('Please unlock with QR Pay or Password Pay first!', 'fa-solid fa-lock');
+        showToast('Please unlock with OSSIAN TOK QR, 6-Digit Passcode, or Password Pay first!', 'fa-solid fa-lock');
         return;
       }
 
